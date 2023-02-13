@@ -1,0 +1,34 @@
+version: '3'
+services:
+  lambdas:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: myapp-lambda:local
+    ports:
+      - 3000:3000
+    environment:
+      - SAM_CLI_CONTAINER_CONNECTION_TIMEOUT=12
+      - AWS_ENDPOINT='http://host.docker.internal:4566' # localstack container host for dynamodb
+      - AWS_DEFAULT_REGION='us-west-2'
+      - AWS_REGION='us-west-2'
+      - AWS_ACCESS_KEY_ID='fake-access-key-id'
+      - AWS_SECRET_ACCESS_KEY='fake-secret-key'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./:/var/task
+    entrypoint: sam local start-api --host 0.0.0.0 --port 3000 --docker-volume-basedir $PWD --container-host host.docker.internal
+
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - '8000:8000' # using port 8000 to be consistent with dynamodb local jar
+      - '4566:4566' # new dynamodb port
+      - '8080:8080' # the localstack admin portal
+    container_name: dynamodb_localstack
+    environment: 
+      - AWS_DEFAULT_REGION=us-east-1
+      - EDGE_PORT=4566
+      - SERVICES=dynamodb,s3
+      # App uses different profiles, this allows a single database file will be shared for all clients
+      - DYNAMODB_SHARE_DB=1

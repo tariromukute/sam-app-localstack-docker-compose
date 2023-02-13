@@ -28,6 +28,7 @@ curl http://127.0.0.1:3000/
 
 - [Database sharing needs to be enabled for applications find the create table resource](https://stackoverflow.com/questions/29558948/dynamo-local-from-node-aws-all-operations-fail-cannot-do-operations-on-a-non-e)
 - The network and container host need to be defined correctly for the application to respond. This was non trival. See the discussion [here](https://github.com/aws/aws-sam-cli/issues/2837)
+- To run the application on Mac M1 had to change the `Architectures:` attribute to `arm64` otherwise would get error after sending a request to http://127.0.0.1:3000/. See [thread](https://github.com/aws/aws-sam-cli/issues/3169) for more details.
 
 ## Useful Resources
 

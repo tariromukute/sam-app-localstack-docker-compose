@@ -3,14 +3,13 @@
 // Create a DocumentClient that represents the query to add an item
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, GetCommand } from '@aws-sdk/lib-dynamodb';
-// const client = new DynamoDBClient({});
-const client = new DynamoDBClient({
+const configurations = process.env.AWS_ENDPOINT !== "None" ? {
   endpoint: process.env.AWS_ENDPOINT,
   region: 'us-west-2'
-});
-client.config.endpoint().then((endpoint) => console.log(endpoint))
-
+} : {}
+const client = new DynamoDBClient(configurations);
 const ddbDocClient = DynamoDBDocumentClient.from(client);
+
 // Get the DynamoDB table name from environment variables
 const tableName = process.env.SAMPLE_TABLE;
 

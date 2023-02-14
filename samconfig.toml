@@ -2,9 +2,10 @@ version = 0.1
 [default]
 [default.deploy]
 [default.deploy.parameters]
-stack_name = "sam-app"
-s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-7f67da29"
-s3_prefix = "sam-app"
+stack_name = "sam-app-localstack-docker-compose"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-c872jciznalq"
+s3_prefix = "sam-app-localstack-docker-compose"
 region = "eu-west-1"
 capabilities = "CAPABILITY_IAM"
 image_repositories = []
+parameter_overrides = "AWSEndpoint=\"None\""

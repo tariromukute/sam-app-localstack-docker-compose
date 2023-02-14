@@ -29,6 +29,9 @@ curl http://127.0.0.1:3000/
 - [Database sharing needs to be enabled for applications find the create table resource](https://stackoverflow.com/questions/29558948/dynamo-local-from-node-aws-all-operations-fail-cannot-do-operations-on-a-non-e)
 - The network and container host need to be defined correctly for the application to respond. This was non trival. See the discussion [here](https://github.com/aws/aws-sam-cli/issues/2837)
 - To run the application on Mac M1 had to change the `Architectures:` attribute to `arm64` otherwise would get error after sending a request to http://127.0.0.1:3000/. See [thread](https://github.com/aws/aws-sam-cli/issues/3169) for more details.
+- Tried setting the Architectures using paramaters to allow to easy switch between different architectures `- !Ref Architecture` however it didn't work consistently. It would switch architectures on every other API call
+- The endpoint url cannot be set as an env variable. This means it has to be handled in the code. There are plans to work on this, see the discussion [here](https://github.com/aws/aws-cli/issues/4454) and the PR for the work in progress [here](https://github.com/aws/aws-sdk/issues/229#issuecomment-1118725725). In the meantime the solution is to handle it as a template ENV.
+- To run this locally successfully, we need to remove `.aws-sam` after running `sam build`
 
 ## Useful Resources
 

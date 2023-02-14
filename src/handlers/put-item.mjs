@@ -3,10 +3,11 @@
 // Create a DocumentClient that represents the query to add an item
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb';
-const client = new DynamoDBClient({
-    endpoint: 'http://host.docker.internal:4566',
-    region: 'eu-west-1'
-});
+const configurations = process.env.AWS_ENDPOINT !== "None" ? {
+    endpoint: process.env.AWS_ENDPOINT,
+    region: 'us-west-2'
+  } : {}
+const client = new DynamoDBClient(configurations);
 const ddbDocClient = DynamoDBDocumentClient.from(client);
 
 // Get the DynamoDB table name from environment variables

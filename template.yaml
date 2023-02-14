@@ -12,6 +12,18 @@ Description: >-
 Transform:
 - AWS::Serverless-2016-10-31
 
+Parameters:
+  AWSEndpoint:
+    Type: String
+    Description: The endpoint to use for AWS client. Useful when we want request to go to localstack
+    Default: None
+
+Globals:
+  Function:
+    Environment:
+      Variables:
+        AWS_ENDPOINT: !Ref AWSEndpoint
+
 # Resources declares the AWS resources that you want to include in the stack
 # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
 Resources:

@@ -32,6 +32,7 @@ curl http://127.0.0.1:3000/
 - Tried setting the Architectures using paramaters to allow to easy switch between different architectures `- !Ref Architecture` however it didn't work consistently. It would switch architectures on every other API call
 - The endpoint url cannot be set as an env variable. This means it has to be handled in the code. There are plans to work on this, see the discussion [here](https://github.com/aws/aws-cli/issues/4454) and the PR for the work in progress [here](https://github.com/aws/aws-sdk/issues/229#issuecomment-1118725725). In the meantime the solution is to handle it as a template ENV.
 - To run this locally successfully, we need to remove `.aws-sam` after running `sam build`
+- Getting the app to work with layers with docker-compose. See the discussion [here](https://github.com/aws/aws-sam-cli/issues/2837)
 
 ## Useful Resources
 
